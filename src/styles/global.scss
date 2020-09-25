@@ -1,0 +1,76 @@
+@import './theme';
+
+html, body {height: 100%;}
+body {
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  background-color: rgba($color: #000000, $alpha: .1);
+}
+
+img {max-width: 100%;}
+
+.text-start {text-align: start !important;}
+.text-center {text-align: center !important;}
+.text-end {text-align: end !important;}
+.text-justify {text-align: justify !important;}
+
+.font-weight-thin {font-weight: 100 !important;}
+.font-weight-semiLight {font-weight: 200 !important;}
+.font-weight-light {font-weight: 300 !important;}
+.font-weight-regular {font-weight: 400 !important;}
+.font-weight-medium {font-weight: 500 !important;}
+.font-weight-semiBold {font-weight: 600 !important;}
+.font-weight-bold {font-weight: 700 !important;}
+.font-weight-extraBold {font-weight: 800 !important;}
+.font-weight-black {font-weight: 900 !important;}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50px;
+  object-position: center;
+}
+
+.text-wrap {white-space: normal !important;}
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// MATERIAL
+app-sidebar {
+  .mat-expansion-panel-body {
+    padding: 0;
+    .mat-list-item-content {padding: 0 30px !important;}
+  }
+}
+
+.mat-fab.fab-bottom-right {
+  right: 1rem;
+  bottom: 5rem;
+  position: fixed;
+}
+
+mat-icon[color="success"] {
+  color: mat-color($success);
+}
+
+snack-bar-container.mat-warn {
+  color: #FFF;
+  background: mat-color($warn);
+  .mat-simple-snackbar-action {color: #fff;}
+}
+snack-bar-container {
+  &.mat-success {
+    color: mat-color($success, default-contrast);
+    background: mat-color($success);
+    .mat-simple-snackbar-action {color: mat-color($success, default-contrast);}
+  }
+  &.mat-warn {
+    color: mat-color($warn, default-contrast);
+    background: mat-color($warn);
+    .mat-simple-snackbar-action {color: mat-color($warn, default-contrast);}
+  }
+}

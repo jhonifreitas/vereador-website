@@ -1,0 +1,22 @@
+#container{
+  margin: auto;
+  max-width: 500px;
+  min-height: 100%;
+  text-align: center;
+  background-color: #ffffff;
+
+  mat-tab-group .text{
+    padding: 1rem 1.5rem;
+  }
+
+  mat-expansion-panel{
+    border-radius: 0;
+    &:nth-child(1) mat-expansion-panel-header{background-color: #e5e6e8;}
+    &:nth-child(2) mat-expansion-panel-header{background-color: #d1d2d4;}
+    &:nth-child(3) mat-expansion-panel-header{background-color: #bcbdbf;}
+    mat-expansion-panel-header{
+      color: #d1d2d4;
+    }
+    .text{padding: 1rem 1.5rem;}
+  }
+}
