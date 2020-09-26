@@ -4,6 +4,9 @@
   min-height: 100%;
   text-align: center;
   background-color: #ffffff;
+  box-shadow: 0 0 10px #cccccc;
+
+  #image img{width: 100%;}
 
   mat-tab-group .text{
     padding: 1rem 1.5rem;
@@ -15,8 +18,34 @@
     &:nth-child(2) mat-expansion-panel-header{background-color: #d1d2d4;}
     &:nth-child(3) mat-expansion-panel-header{background-color: #bcbdbf;}
     mat-expansion-panel-header{
-      color: #d1d2d4;
+      height: auto;
+      padding: 1rem 1rem;
+    }
+    mat-panel-title{
+      margin-right: 0;
+      color: #9c9c9c;
+      font-size: 1.5rem;
+      line-height: 1.5;
     }
     .text{padding: 1rem 1.5rem;}
+  }
+
+  #share{
+    padding: 1.5rem 0;
+    background-color: #747474;
+    h3{margin-bottom: 0;}
+    form{
+      margin: 1rem 0;
+      .mat-button, input{width: 100%;}
+      .form-group{
+        margin-bottom: .5rem;
+        input{
+          border: none;
+          border-radius: 4px;
+          padding: .8rem .5rem;
+          box-sizing: border-box;
+        }
+      }
+    }
   }
 }

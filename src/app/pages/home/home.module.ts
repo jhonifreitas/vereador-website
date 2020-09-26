@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // FLEX
 import { FlexLayoutModule } from '@angular/flex-layout';
+// MASK
+import { NgxMaskModule } from 'ngx-mask';
 
 // MATERIAL
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +30,7 @@ import { HomePage } from './home.component';
     MatFormFieldModule,
     MatExpansionModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
     RouterModule.forChild([{ path: '', component: HomePage }]),
   ],
   declarations: [HomePage],

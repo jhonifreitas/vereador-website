@@ -1,8 +1,5 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
-import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +12,6 @@ export class HomePage implements OnInit {
   form: FormGroup;
 
   constructor(
-    private router: Router,
-    private utils: UtilsService,
     private formGroup: FormBuilder,
   ) {
     this.form = this.formGroup.group({
@@ -27,6 +22,11 @@ export class HomePage implements OnInit {
   ngOnInit(): void { }
 
   async shareWhatsapp() {
-    
+    this.loading = true;
+    const data = this.form.value;
+    const msg = '*Olá! Tudo bem?*%0a';
+    const url = `https://wa.me/55${data.phone}?text=${msg}`;
+    window.open(url);
+    this.loading = false;
   }
 }

@@ -56,6 +56,9 @@ app-sidebar {
 mat-icon[color="success"] {
   color: mat-color($success);
 }
+mat-button[color="success"] {
+  color: mat-color($success);
+}
 
 snack-bar-container.mat-warn {
   color: #FFF;
@@ -72,5 +75,12 @@ snack-bar-container {
     color: mat-color($warn, default-contrast);
     background: mat-color($warn);
     .mat-simple-snackbar-action {color: mat-color($warn, default-contrast);}
+  }
+}
+
+.mat-button{
+  &.mat-success {
+    color: mat-color($success, default-contrast);
+    background: mat-color($success);
   }
 }
