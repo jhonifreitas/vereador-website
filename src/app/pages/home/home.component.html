@@ -4,47 +4,17 @@
   </div>
   
   <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Sobre o Rubinho">
-      <div class="text">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam doloremque ea fugit nostrum voluptatem sit cupiditate minima quis labore tempore eius impedit cum nisi quisquam perspiciatis quia reprehenderit, a vel.
-      </div>
-    </mat-tab>
-    <mat-tab label="Nossas Propostas">
-      <div class="text">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam doloremque ea fugit nostrum voluptatem sit cupiditate minima quis labore tempore eius impedit cum nisi quisquam perspiciatis quia reprehenderit, a vel.
-      </div>
-    </mat-tab>
-    <mat-tab label="Sobre Jaqueline">
-      <div class="text">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam doloremque ea fugit nostrum voluptatem sit cupiditate minima quis labore tempore eius impedit cum nisi quisquam perspiciatis quia reprehenderit, a vel.
-      </div>
+    <mat-tab *ngFor="let tab of tabs" [label]="tab.name">
+      <div class="text" [innerHtml]="tab.text"></div>
     </mat-tab>
   </mat-tab-group>
 
   <div id="expansions">
-    <mat-expansion-panel class="mat-elevation-z0" hideToggle>
+    <mat-expansion-panel class="mat-elevation-z0" *ngFor="let category of categories" hideToggle>
       <mat-expansion-panel-header>
-        <mat-panel-title fxLayoutAlign="center center">Saúde</mat-panel-title>
+        <mat-panel-title fxLayoutAlign="center center">{{ category.name }}</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="text">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa assumenda rerum delectus exercitationem laudantium alias ad, molestiae ex dignissimos doloremque ea non autem dolorem sed sunt inventore, quibusdam eius! Totam?</p>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel class="mat-elevation-z0" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title fxLayoutAlign="center center">Educação</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="text">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa assumenda rerum delectus exercitationem laudantium alias ad, molestiae ex dignissimos doloremque ea non autem dolorem sed sunt inventore, quibusdam eius! Totam?</p>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel class="mat-elevation-z0" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title fxLayoutAlign="center center">Segurança</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="text">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa assumenda rerum delectus exercitationem laudantium alias ad, molestiae ex dignissimos doloremque ea non autem dolorem sed sunt inventore, quibusdam eius! Totam?</p>
-      </div>
+      <div class="text" [innerHtml]="category.text"></div>
     </mat-expansion-panel>
   </div>
   <div id="share">
@@ -60,7 +30,14 @@
             <span *ngIf="loading">Enviando...</span>
           </button>
         </form>
-        <h3>Wisão @ 2020</h3>
+        <div class="social">
+          <a mat-icon-button *ngFor="let social of socials" [href]="social.url" target="_blank">
+            <mat-icon *ngIf="social.type == 'facebook'" fontSet="fab" fontIcon="fa-facebook-f"></mat-icon>
+            <mat-icon *ngIf="social.type == 'youtube'" fontSet="fab" fontIcon="fa-youtube"></mat-icon>
+            <mat-icon *ngIf="social.type == 'instagram'" fontSet="fab" fontIcon="fa-instagram"></mat-icon>
+            <mat-icon *ngIf="social.type == 'linkedin'" fontSet="fab" fontIcon="fa-linkedin-in"></mat-icon>
+          </a>
+        </div>
       </div>
     </div>
   </div>

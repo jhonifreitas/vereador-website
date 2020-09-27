@@ -1,6 +1,6 @@
-export class Category {
+export class Tab {
   id?: string;
+  config: string;
   name: string;
   text: string;
-  config: string;
 }
