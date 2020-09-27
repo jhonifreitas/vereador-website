@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
       // SHARE
       this.meta.updateTag({ property: 'og:title', content: this.config.title });
       this.meta.updateTag({ property: 'og:description', content: this.config.description });
-      // this.meta.updateTag({ property: 'og:image', content: this.config.image });
+      this.meta.updateTag({ property: 'og:image', content: this.config.image });
 
       this.getSocials();
       this.getTabs();
