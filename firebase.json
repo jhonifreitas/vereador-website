@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "vereador-cdc01",
+    "public": "dist/vereador-website",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
