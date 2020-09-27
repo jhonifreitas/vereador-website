@@ -1,3 +1,4 @@
+import * as firebase from 'firebase/app';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,11 +8,14 @@ import { Tab } from 'src/app/models/tab';
 import { Social } from 'src/app/models/social';
 import { Config } from 'src/app/models/config';
 import { Category } from 'src/app/models/category';
+import { Access, Analytics } from 'src/app/models/analytics';
 
+import { IPService } from 'src/app/services/ip/ip.service';
 import { FBTabService } from 'src/app/services/firebase/tab/tab.service';
 import { FBSocialService } from 'src/app/services/firebase/social/social.service';
 import { FBConfigService } from 'src/app/services/firebase/config/config.service';
 import { FBCategoryService } from 'src/app/services/firebase/category/category.service';
+import { FBAnalyticsService } from 'src/app/services/firebase/analytics/analytics.service';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +35,7 @@ export class HomePage implements OnInit {
   constructor(
     private meta: Meta,
     private title: Title,
+    private ip: IPService,
     private router: Router,
     private fbTab: FBTabService,
     private formGroup: FormBuilder,
@@ -38,6 +43,7 @@ export class HomePage implements OnInit {
     private fbConfig: FBConfigService,
     private fbCategory: FBCategoryService,
     private activatedRoute: ActivatedRoute,
+    private fbAnalytics: FBAnalyticsService,
   ) {
     this.url = this.activatedRoute.snapshot.paramMap.get('url');
     this.form = this.formGroup.group({
@@ -56,12 +62,37 @@ export class HomePage implements OnInit {
       this.meta.updateTag({ property: 'og:description', content: this.config.description });
       this.meta.updateTag({ property: 'og:image', content: this.config.image });
 
+      this.getGeoLocation();
+
       this.getSocials();
       this.getTabs();
       this.getCategories();
     }else{
       this.router.navigateByUrl('/error/404');
     }
+  }
+
+  getGeoLocation() {
+    navigator.geolocation.getCurrentPosition(async position => {
+      const lat = position.coords.latitude;
+      const long = position.coords.longitude;
+      await this.ip.getIPAddress().then(async (res: {ip: string}) => {
+        await this.fbAnalytics.get(res.ip).then(async analytics => {
+          const access: Access = {
+            lat: lat,
+            long: long,
+            date: firebase.firestore.Timestamp.now()
+          };
+          const data: Analytics = {ip: res.ip, config: this.url, access: [access]};
+          if(analytics) {
+            data.access = data.access.concat(analytics.access);
+          }
+          await this.fbAnalytics.update(data);
+        })
+      });
+    }, err => {
+      console.error('User not allowed')
+    }, { timeout: 10000 })
   }
 
   getConfig(): Promise<Config> {
