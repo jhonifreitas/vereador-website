@@ -1,5 +1,5 @@
 <main id="container">
-  <div id="image">
+  <div id="image" *ngIf="config && config.image">
     <img [src]="config.image" alt="">
   </div>
   
