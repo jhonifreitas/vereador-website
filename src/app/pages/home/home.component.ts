@@ -10,6 +10,7 @@ import { Tab } from 'src/app/models/tab';
 import { Social } from 'src/app/models/social';
 import { Config } from 'src/app/models/config';
 import { Category } from 'src/app/models/category';
+import { environment } from 'src/environments/environment';
 import { Access, Analytics } from 'src/app/models/analytics';
 
 import { IPService } from 'src/app/services/ip/ip.service';
@@ -66,6 +67,8 @@ export class HomePage implements OnInit {
       this.meta.updateTag({ property: 'og:title', content: this.config.title });
       this.meta.updateTag({ property: 'og:description', content: this.config.description });
       this.meta.updateTag({ property: 'og:image', content: this.config.image });
+      this.meta.updateTag({ property: 'og:type', content: 'website' });
+      this.meta.updateTag({ property: 'og:url', content: `${environment.host}/${this.config.url}` });
 
       this.getGeoLocation();
 
@@ -142,7 +145,7 @@ export class HomePage implements OnInit {
   get whatsappMsg() {
     let msg = this.config.shareMsg.replace(/\n/gm, '%0a');
     msg += `%0a%0a`;
-    msg += `https://minhaproposta.org/${this.config.url}`;
+    msg += `${environment.host}/${this.config.url}`;
     return msg;
   }
 }
