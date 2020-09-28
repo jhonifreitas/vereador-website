@@ -7,6 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 // MASK
 import { NgxMaskModule } from 'ngx-mask';
+// LOTTIE
+import { LottieModule } from 'ngx-lottie';
+export function playerFactory() {return import('lottie-web');}
 
 // MATERIAL
 import { MatIconModule } from '@angular/material/icon';
@@ -32,6 +35,7 @@ import { HomePage } from './home.component';
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
     RouterModule.forChild([{ path: '', component: HomePage }]),
+    LottieModule.forRoot({player: playerFactory, useCache: true})
   ],
   declarations: [HomePage],
 })

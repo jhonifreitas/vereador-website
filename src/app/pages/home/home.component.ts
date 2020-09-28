@@ -4,6 +4,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { AnimationOptions } from 'ngx-lottie';
+
 import { Tab } from 'src/app/models/tab';
 import { Social } from 'src/app/models/social';
 import { Config } from 'src/app/models/config';
@@ -11,6 +13,7 @@ import { Category } from 'src/app/models/category';
 import { Access, Analytics } from 'src/app/models/analytics';
 
 import { IPService } from 'src/app/services/ip/ip.service';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 import { FBTabService } from 'src/app/services/firebase/tab/tab.service';
 import { FBSocialService } from 'src/app/services/firebase/social/social.service';
 import { FBConfigService } from 'src/app/services/firebase/config/config.service';
@@ -27,16 +30,18 @@ export class HomePage implements OnInit {
   tabs: Tab[];
   url: string;
   config: Config;
-  loading = false;
+  loading = true;
   form: FormGroup;
   socials: Social[];
   categories: Category[];
+  lottieOpts: AnimationOptions = {path: '/assets/lottie/loading.json'};
 
   constructor(
     private meta: Meta,
     private title: Title,
     private ip: IPService,
     private router: Router,
+    private utils: UtilsService,
     private fbTab: FBTabService,
     private formGroup: FormBuilder,
     private fbSocial: FBSocialService,
@@ -90,8 +95,10 @@ export class HomePage implements OnInit {
           await this.fbAnalytics.update(data);
         })
       });
+      this.loading = false;
     }, err => {
-      console.error('User not allowed')
+      console.error(err);
+      this.utils.message('Não foi possível obter sua localização, verifique seu GPS e permissões de localização!', 'warn', null, 1000000);
     }, { timeout: 10000 })
   }
 
@@ -121,12 +128,20 @@ export class HomePage implements OnInit {
     })
   }
 
-  async shareWhatsapp() {
-    this.loading = true;
-    const data = this.form.value;
-    const msg = this.config.shareMsg;
-    const url = `https://wa.me/55${data.phone}?text=${msg}`;
+  shareWhatsapp() {
+    const url = `whatsapp://send?text=${this.whatsappMsg}`;
     window.open(url);
-    this.loading = false;
+  }
+
+  shareWhatsappPhone() {
+    const data = this.form.value;
+    const url = `https://wa.me/55${data.phone}?text=${this.whatsappMsg}`;
+    window.open(url);
+  }
+
+  get whatsappMsg() {
+    let msg = `${this.config.shareMsg}%0a%0a`;
+    msg += `https://minhaproposta.org/${this.config.url}`;
+    return msg;
   }
 }

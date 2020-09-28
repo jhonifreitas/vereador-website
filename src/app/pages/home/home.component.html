@@ -1,5 +1,7 @@
-<main id="container">
-  <div id="image" *ngIf="config && config.image">
+<ng-lottie *ngIf="loading" [options]="lottieOpts" width="150px" height="150px"></ng-lottie>
+
+<main id="container" *ngIf="!loading">
+  <div id="image" *ngIf="config.image">
     <img [src]="config.image" alt="">
   </div>
   
@@ -20,7 +22,7 @@
   <div id="share">
     <div fxLayout="row" fxLayoutAlign="center center">
       <div fxFlex="50">
-        <h3>Compartilhar</h3>
+        <a mat-button (click)="shareWhatsapp()">Compartilhar</a>
         <form [formGroup]="form" (ngSubmit)="shareWhatsapp()">
           <div class="form-group">
             <input type="text" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">

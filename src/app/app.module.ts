@@ -36,7 +36,7 @@ registerLocaleData(localePt);
     BrowserAnimationsModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     DatePipe,

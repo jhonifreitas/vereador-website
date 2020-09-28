@@ -25,6 +25,8 @@
     "@angular/router": "~10.0.5",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "firebase": "^7.21.1",
+    "lottie-web": "^5.7.3",
+    "ngx-lottie": "^6.4.0",
     "ngx-mask": "^10.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
