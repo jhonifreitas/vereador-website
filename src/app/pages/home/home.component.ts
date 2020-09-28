@@ -140,7 +140,8 @@ export class HomePage implements OnInit {
   }
 
   get whatsappMsg() {
-    let msg = `${this.config.shareMsg}%0a%0a`;
+    let msg = this.config.shareMsg.replace(/\n/gm, '%0a');
+    msg += `%0a%0a`;
     msg += `https://minhaproposta.org/${this.config.url}`;
     return msg;
   }

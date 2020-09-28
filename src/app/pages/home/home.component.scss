@@ -1,3 +1,5 @@
+@import "src/styles/theme.scss";
+
 ng-lottie{
   top: 0;
   left: 0;
@@ -20,26 +22,34 @@ ng-lottie{
 
   #image img{width: 100%;}
 
-  mat-tab-group .text{
-    padding: 1rem 1.5rem;
+  mat-tab-group{
+    .text{
+      padding: 1rem 1.5rem;
+    }
   }
 
-  mat-expansion-panel{
-    border-radius: 0;
-    &:nth-child(1) mat-expansion-panel-header{background-color: #e5e6e8;}
-    &:nth-child(2) mat-expansion-panel-header{background-color: #d1d2d4;}
-    &:nth-child(3) mat-expansion-panel-header{background-color: #bcbdbf;}
-    mat-expansion-panel-header{
-      height: auto;
-      padding: 1rem 1rem;
+  #expansions{
+    mat-expansion-panel{
+      border-radius: 0;
+      &:nth-child(1) mat-expansion-panel-header{background-color: #e5e6e8;}
+      &:nth-child(2) mat-expansion-panel-header{background-color: #d1d2d4;}
+      &:nth-child(3) mat-expansion-panel-header{background-color: #bcbdbf;}
+      mat-expansion-panel-header{
+        height: auto;
+        padding: 1rem 1rem;
+      }
+      mat-panel-title{
+        margin-right: 0;
+        color: #9c9c9c;
+        font-size: 1.5rem;
+        line-height: 1.5;
+      }
+      .text{padding: 1rem 1.5rem;}
+      &#donation mat-expansion-panel-header{
+        background-color: mat-color($success);
+        mat-panel-title{color: mat-color($success, default-contrast);}
+      }
     }
-    mat-panel-title{
-      margin-right: 0;
-      color: #9c9c9c;
-      font-size: 1.5rem;
-      line-height: 1.5;
-    }
-    .text{padding: 1rem 1.5rem;}
   }
 
   #share{
@@ -58,6 +68,9 @@ ng-lottie{
           box-sizing: border-box;
         }
       }
+    }
+    .social a{
+      color: #fff;
     }
   }
 }

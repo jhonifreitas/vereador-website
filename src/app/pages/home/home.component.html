@@ -18,6 +18,12 @@
       </mat-expansion-panel-header>
       <div class="text" [innerHtml]="category.text"></div>
     </mat-expansion-panel>
+    <mat-expansion-panel id="donation" class="mat-elevation-z0" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title fxLayoutAlign="center center">Doação</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="text text-wrap" [innerHtml]="config.donation"></div>
+    </mat-expansion-panel>
   </div>
   <div id="share">
     <div fxLayout="row" fxLayoutAlign="center center">
