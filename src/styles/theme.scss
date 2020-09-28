@@ -25,3 +25,14 @@ $theme: mat-light-theme((
 ));
 
 @include angular-material-theme($theme);
+
+:root{
+  --primary: #{mat-color($primary)};
+  --primary-contrast: #{mat-color($primary, default-contrast)};
+  --accent: #{mat-color($accent)};
+  --accent-contrast: #{mat-color($accent, default-contrast)};
+  --warn: #{mat-color($warn)};
+  --warn-contrast: #{mat-color($warn, default-contrast)};
+  --success: #{mat-color($success)};
+  --success-contrast: #{mat-color($success, default-contrast)};
+}

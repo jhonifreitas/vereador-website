@@ -1,5 +1,3 @@
-@import "src/styles/theme.scss";
-
 ng-lottie{
   top: 0;
   left: 0;
@@ -46,8 +44,8 @@ ng-lottie{
       }
       .text{padding: 1rem 1.5rem;}
       &#donation mat-expansion-panel-header{
-        background-color: mat-color($success);
-        mat-panel-title{color: mat-color($success, default-contrast);}
+        background-color: var(--success);
+        mat-panel-title{color: var(--success-contrast);}
       }
     }
   }
