@@ -61,20 +61,22 @@ export class HomePage implements OnInit {
     this.config = await this.getConfig();
     if(this.config){
       this.title.setTitle(this.config.title);
-      this.meta.updateTag({ name: 'keywords', content: this.config.keywords.join(',') });
-      this.meta.updateTag({ name: 'description', content: this.config.description });
-      // SHARE
-      this.meta.updateTag({ property: 'og:title', content: this.config.title });
-      this.meta.updateTag({ property: 'og:description', content: this.config.description });
-      this.meta.updateTag({ property: 'og:image', content: this.config.image });
-      this.meta.updateTag({ property: 'og:type', content: 'website' });
-      this.meta.updateTag({ property: 'og:url', content: `${environment.host}/${this.config.url}` });
+      this.meta.addTags([
+        { name: 'keywords', content: this.config.keywords.join(',') },
+        { name: 'description', content: this.config.description },
+        { property: 'og:title', content: this.config.title },
+        { property: 'og:description', content: this.config.description },
+        { property: 'og:image', content: this.config.image },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: `${environment.host}/${this.config.url}` },
+      ]);
 
       this.getGeoLocation();
 
       this.getSocials();
       this.getTabs();
       this.getCategories();
+      this.loading = false;
     }else{
       this.router.navigateByUrl('/error/404');
     }
@@ -98,7 +100,6 @@ export class HomePage implements OnInit {
           await this.fbAnalytics.update(data);
         })
       });
-      this.loading = false;
     }, err => {
       console.error(err);
       this.utils.message('Não foi possível obter sua localização, verifique seu GPS e permissões de localização!', 'warn', null, 1000000);

@@ -27,7 +27,7 @@ registerLocaleData(localePt);
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
     MatSnackBarModule,
