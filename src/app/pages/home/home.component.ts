@@ -1,7 +1,8 @@
 import * as firebase from 'firebase/app';
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { AnimationOptions } from 'ngx-lottie';
@@ -28,6 +29,8 @@ import { FBAnalyticsService } from 'src/app/services/firebase/analytics/analytic
 })
 export class HomePage implements OnInit {
 
+  private isBrowser: boolean;
+
   tabs: Tab[];
   url: string;
   config: Config;
@@ -45,12 +48,14 @@ export class HomePage implements OnInit {
     private utils: UtilsService,
     private fbTab: FBTabService,
     private formGroup: FormBuilder,
+    @Inject(PLATFORM_ID) platformId,
     private fbSocial: FBSocialService,
     private fbConfig: FBConfigService,
     private fbCategory: FBCategoryService,
     private activatedRoute: ActivatedRoute,
     private fbAnalytics: FBAnalyticsService,
   ) {
+    this.isBrowser = platformId;
     this.url = this.activatedRoute.snapshot.paramMap.get('url');
     this.form = this.formGroup.group({
       phone: new FormControl('', Validators.required)
@@ -71,7 +76,9 @@ export class HomePage implements OnInit {
         { property: 'og:url', content: `${environment.host}/${this.config.url}` },
       ]);
 
-      this.getGeoLocation();
+      if(isPlatformBrowser(this.isBrowser)){
+        this.getGeoLocation();
+      }
 
       this.getSocials();
       this.getTabs();
