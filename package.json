@@ -11,7 +11,9 @@
     "dev:ssr": "ng run vereador-website:serve-ssr",
     "serve:ssr": "node dist/vereador-website/server/main.js",
     "build:ssr": "ng build --prod && ng run vereador-website:server:production",
-    "prerender": "ng run vereador-website:prerender"
+    "prerender": "ng run vereador-website:prerender",
+    "build:functions": "npm run --prefix functions build",
+    "build:all": "npm run build:ssr && npm run build:functions"
   },
   "private": true,
   "dependencies": {
