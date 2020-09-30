@@ -28,12 +28,16 @@
   <div id="share">
     <div fxLayout="row" fxLayoutAlign="center center">
       <div fxFlex="50">
-        <a mat-button (click)="shareWhatsapp()">Compartilhar</a>
+        <a id="shareWhastapp" mat-raised-button (click)="shareWhatsapp()">
+          Compartilhar
+          <mat-icon fontSet="fab" fontIcon="fa-whatsapp"></mat-icon>
+        </a>
+        <h3><small>ou digite o telefone</small></h3>
         <form [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
           <div class="form-group">
             <input type="text" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
           </div>
-          <button mat-button type="submit" color="success" [disabled]="loading">
+          <button mat-raised-button type="submit" color="success" [disabled]="loading">
             <span *ngIf="!loading">Enviar Cartão</span>
             <span *ngIf="loading">Enviando...</span>
           </button>

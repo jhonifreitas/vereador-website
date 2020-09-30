@@ -78,7 +78,7 @@ snack-bar-container {
   }
 }
 
-.mat-button{
+.mat-button-base{
   &.mat-success {
     color: mat-color($success, default-contrast);
     background: mat-color($success);

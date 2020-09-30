@@ -92,19 +92,17 @@ export class HomePage implements OnInit {
       const lat = position.coords.latitude;
       const long = position.coords.longitude;
       await this.ip.getIPAddress().then(async (res: {ip: string}) => {
+        const access: Access = {
+          lat: lat,
+          long: long,
+          date: firebase.firestore.Timestamp.now()
+        };
         await this.fbAnalytics.get(res.ip, this.config.id).then(async analytics => {
-          const access: Access = {
-            lat: lat,
-            long: long,
-            date: firebase.firestore.Timestamp.now()
-          };
-          if(analytics) {
-            analytics.access.push(access);
-            await this.fbAnalytics.update(analytics.id, {access: analytics.access});
-          }else{
-            const data: Analytics = {ip: res.ip, config: this.config.id, access: [access]};
-            await this.fbAnalytics.create(data);
-          }
+          analytics.access.push(access);
+          await this.fbAnalytics.update(analytics.id, {access: analytics.access});
+        }).catch(async _ => {
+          const data: Analytics = {ip: res.ip, config: this.config.id, access: [access]};
+          await this.fbAnalytics.create(data);
         })
       });
     }, err => {
