@@ -32,7 +32,6 @@ export class HomePage implements OnInit {
   private isBrowser: boolean;
 
   tabs: Tab[];
-  url: string;
   config: Config;
   loading = true;
   form: FormGroup;
@@ -56,7 +55,6 @@ export class HomePage implements OnInit {
     private fbAnalytics: FBAnalyticsService,
   ) {
     this.isBrowser = platformId;
-    this.url = this.activatedRoute.snapshot.paramMap.get('url');
     this.form = this.formGroup.group({
       phone: new FormControl('', Validators.required)
     });
@@ -94,17 +92,19 @@ export class HomePage implements OnInit {
       const lat = position.coords.latitude;
       const long = position.coords.longitude;
       await this.ip.getIPAddress().then(async (res: {ip: string}) => {
-        await this.fbAnalytics.get(res.ip).then(async analytics => {
+        await this.fbAnalytics.get(res.ip, this.config.id).then(async analytics => {
           const access: Access = {
             lat: lat,
             long: long,
             date: firebase.firestore.Timestamp.now()
           };
-          const data: Analytics = {ip: res.ip, config: this.url, access: [access]};
           if(analytics) {
-            data.access = data.access.concat(analytics.access);
+            analytics.access.push(access);
+            await this.fbAnalytics.update(analytics.id, {access: analytics.access});
+          }else{
+            const data: Analytics = {ip: res.ip, config: this.config.id, access: [access]};
+            await this.fbAnalytics.create(data);
           }
-          await this.fbAnalytics.update(data);
         })
       });
     }, err => {
@@ -115,26 +115,27 @@ export class HomePage implements OnInit {
 
   getConfig(): Promise<Config> {
     return new Promise(resolve => {
-      this.fbConfig.get(this.url).subscribe(config => {
+      const url = this.activatedRoute.snapshot.paramMap.get('url');
+      this.fbConfig.get(url).subscribe(config => {
         resolve(config);
       });
     });
   }
 
   getSocials() {
-    this.fbSocial.all(this.url).subscribe(socials => {
+    this.fbSocial.all(this.config.id).subscribe(socials => {
       this.socials = socials;
     })
   }
 
   getTabs() {
-    this.fbTab.all(this.url).subscribe(tabs => {
+    this.fbTab.all(this.config.id).subscribe(tabs => {
       this.tabs = tabs;
     })
   }
 
   getCategories() {
-    this.fbCategory.all(this.url).subscribe(categories => {
+    this.fbCategory.all(this.config.id).subscribe(categories => {
       this.categories = categories;
     })
   }

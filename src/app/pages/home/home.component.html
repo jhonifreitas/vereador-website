@@ -29,7 +29,7 @@
     <div fxLayout="row" fxLayoutAlign="center center">
       <div fxFlex="50">
         <a mat-button (click)="shareWhatsapp()">Compartilhar</a>
-        <form [formGroup]="form" (ngSubmit)="shareWhatsapp()">
+        <form [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
           <div class="form-group">
             <input type="text" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
           </div>
