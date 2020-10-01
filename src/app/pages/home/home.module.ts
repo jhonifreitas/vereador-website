@@ -20,6 +20,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { HomePage } from './home.component';
+import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 @NgModule({
   imports: [
@@ -37,6 +38,6 @@ import { HomePage } from './home.component';
     RouterModule.forChild([{ path: '', component: HomePage }]),
     LottieModule.forRoot({player: playerFactory, useCache: true})
   ],
-  declarations: [HomePage],
+  declarations: [HomePage, SafeHtmlPipe]
 })
 export class HomePageModule {}

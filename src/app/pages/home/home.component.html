@@ -7,7 +7,7 @@
   
   <mat-tab-group mat-align-tabs="center">
     <mat-tab *ngFor="let tab of tabs" [label]="tab.name">
-      <div class="text" [innerHtml]="tab.text"></div>
+      <div class="text" [innerHtml]="tab.text | safeHtml"></div>
     </mat-tab>
   </mat-tab-group>
 
@@ -16,13 +16,13 @@
       <mat-expansion-panel-header>
         <mat-panel-title fxLayoutAlign="center center">{{ category.name }}</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="text" [innerHtml]="category.text"></div>
+      <div class="text" [innerHtml]="category.text | safeHtml"></div>
     </mat-expansion-panel>
     <mat-expansion-panel id="donation" class="mat-elevation-z0" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title fxLayoutAlign="center center">Doação</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="text text-wrap" [innerHtml]="config.donation"></div>
+      <div class="text text-wrap" [innerHtml]="config.donation | safeHtml"></div>
     </mat-expansion-panel>
   </div>
   <div id="share">
