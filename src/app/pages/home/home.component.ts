@@ -1,9 +1,9 @@
 import * as firebase from 'firebase/app';
-import { isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, Inject, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 
 import { AnimationOptions } from 'ngx-lottie';
 
@@ -29,8 +29,6 @@ import { FBAnalyticsService } from 'src/app/services/firebase/analytics/analytic
 })
 export class HomePage implements OnInit {
 
-  private isBrowser: boolean;
-
   tabs: Tab[];
   config: Config;
   loading = true;
@@ -46,15 +44,16 @@ export class HomePage implements OnInit {
     private router: Router,
     private utils: UtilsService,
     private fbTab: FBTabService,
+    private _renderer2: Renderer2,
     private formGroup: FormBuilder,
-    @Inject(PLATFORM_ID) platformId,
     private fbSocial: FBSocialService,
     private fbConfig: FBConfigService,
     private fbCategory: FBCategoryService,
     private activatedRoute: ActivatedRoute,
     private fbAnalytics: FBAnalyticsService,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: boolean,
   ) {
-    this.isBrowser = platformId;
     this.form = this.formGroup.group({
       phone: new FormControl('', Validators.required)
     });
@@ -63,6 +62,13 @@ export class HomePage implements OnInit {
   async ngOnInit() {
     this.config = await this.getConfig();
     if(this.config){
+
+      if(this.config.pixel){
+        let script = this._renderer2.createElement('script');
+        script.text = this.config.pixel;
+        this._renderer2.appendChild(this.document.body, script);
+      }
+
       this.title.setTitle(this.config.title);
       this.meta.addTags([
         { name: 'keywords', content: this.config.keywords.join(',') },
@@ -74,7 +80,7 @@ export class HomePage implements OnInit {
         { property: 'og:url', content: `${environment.host}/${this.config.url}` },
       ]);
 
-      if(isPlatformBrowser(this.isBrowser)){
+      if(isPlatformBrowser(this.platformId)){
         this.getGeoLocation();
       }
 
