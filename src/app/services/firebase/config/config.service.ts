@@ -26,4 +26,8 @@ export class FBConfigService {
         })
       );
   }
+
+  getById(id: string) {
+    return this.db.collection(this.collectionName).doc<Config>(id).valueChanges();
+  }
 }

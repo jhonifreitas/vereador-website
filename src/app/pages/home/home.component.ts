@@ -63,10 +63,16 @@ export class HomePage implements OnInit {
     this.config = await this.getConfig();
     if(this.config){
 
+      if(this.config.owner) {
+        this.fbConfig.get(this.config.owner).subscribe(config => {
+          if(config.pixel){
+            this.setPixel(config.pixel);
+          }
+        })
+      }
+
       if(this.config.pixel){
-        let script = this._renderer2.createElement('script');
-        script.text = this.config.pixel;
-        this._renderer2.appendChild(this.document.body, script);
+        this.setPixel(this.config.pixel);
       }
 
       this.title.setTitle(this.config.title);
@@ -142,6 +148,12 @@ export class HomePage implements OnInit {
     this.fbCategory.all(this.config.id).subscribe(categories => {
       this.categories = categories;
     })
+  }
+
+  setPixel(pixel: string) {
+    let script = this._renderer2.createElement('script');
+    script.text = pixel;
+    this._renderer2.appendChild(this.document.body, script);
   }
 
   shareWhatsapp() {
