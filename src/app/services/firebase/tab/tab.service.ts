@@ -17,7 +17,7 @@ export class FBTabService {
   ) { }
 
   all(configId: string) {
-    return this.db.collection(this.collectionName, ref => ref.where('config', '==', configId)).get().pipe(
+    return this.db.collection(this.collectionName, ref => ref.where('config', '==', configId).orderBy('order')).get().pipe(
       map(actions => {
         return actions.docs.map(doc => {
           if(doc.exists){
