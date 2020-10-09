@@ -29,18 +29,11 @@ ng-lottie{
   #expansions{
     mat-expansion-panel{
       border-radius: 0;
-      &:nth-child(1) mat-expansion-panel-header{background-color: rgba(0,0,0,.1);}
-      &:nth-child(2) mat-expansion-panel-header{background-color: rgba(0,0,0,.2);}
-      &:nth-child(3) mat-expansion-panel-header{background-color: rgba(0,0,0,.3);}
-      &:nth-child(4) mat-expansion-panel-header{background-color: rgba(0,0,0,.4);}
-      &:nth-child(5) mat-expansion-panel-header{background-color: rgba(0,0,0,.5);}
-      &:nth-child(6) mat-expansion-panel-header{background-color: rgba(0,0,0,.6);}
-      &:nth-child(7) mat-expansion-panel-header{background-color: rgba(0,0,0,.7);}
-      &:nth-child(8) mat-expansion-panel-header{background-color: rgba(0,0,0,.8);}
-      &:nth-child(9) mat-expansion-panel-header{background-color: rgba(0,0,0,.9);}
       mat-expansion-panel-header{
         height: auto;
+        margin-top: 2px;
         padding: 1rem 1rem;
+        background-color: rgba(0,0,0,.1);
       }
       mat-panel-title{
         margin-right: 0;

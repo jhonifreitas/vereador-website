@@ -18,7 +18,7 @@
       </mat-expansion-panel-header>
       <div class="text" [innerHtml]="category.text | safeHtml"></div>
     </mat-expansion-panel>
-    <mat-expansion-panel id="donation" class="mat-elevation-z0" hideToggle>
+    <mat-expansion-panel id="donation" class="mat-elevation-z0" *ngIf="config.donation" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title fxLayoutAlign="center center">Doação</mat-panel-title>
       </mat-expansion-panel-header>
