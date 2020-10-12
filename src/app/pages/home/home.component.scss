@@ -37,11 +37,11 @@ ng-lottie{
       }
       mat-panel-title{
         margin-right: 0;
-        color: #9c9c9c;
-        font-size: 1.5rem;
+        color: #808080;
         line-height: 1.5;
+        font-size: 1.2rem;
       }
-      .text{padding: 1rem 1.5rem;}
+      .text{padding: 1rem 1.5rem 0 1.5rem;}
       &#donation mat-expansion-panel-header{
         background-color: var(--success);
         mat-panel-title{color: var(--success-contrast);}
