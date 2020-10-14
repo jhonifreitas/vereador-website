@@ -83,8 +83,9 @@ export class HomePage implements OnInit {
         { property: 'og:title', content: this.config.title },
         { property: 'og:description', content: this.config.description },
         { property: 'og:image', content: this.config.image.url },
-        { property: 'og:image:width', content: `${this.config.image.width}px` },
-        { property: 'og:image:height', content: `${this.config.image.height}px` },
+        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:image:width', content: this.config.image.width.toString() },
+        { property: 'og:image:height', content: this.config.image.height.toString() },
         { property: 'og:url', content: `${environment.host}/${this.config.url}` },
       ]);
 
