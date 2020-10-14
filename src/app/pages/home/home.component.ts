@@ -44,7 +44,7 @@ export class HomePage implements OnInit {
     private router: Router,
     private utils: UtilsService,
     private fbTab: FBTabService,
-    private _renderer2: Renderer2,
+    private renderer2: Renderer2,
     private formGroup: FormBuilder,
     private fbSocial: FBSocialService,
     private fbConfig: FBConfigService,
@@ -79,10 +79,12 @@ export class HomePage implements OnInit {
       this.meta.addTags([
         { name: 'keywords', content: this.config.keywords.join(',') },
         { name: 'description', content: this.config.description },
+        { property: 'og:type', content: 'website' },
         { property: 'og:title', content: this.config.title },
         { property: 'og:description', content: this.config.description },
-        { property: 'og:image', content: this.config.image },
-        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: this.config.image.url },
+        { property: 'og:image:width', content: `${this.config.image.width}px` },
+        { property: 'og:image:height', content: `${this.config.image.height}px` },
         { property: 'og:url', content: `${environment.host}/${this.config.url}` },
       ]);
 
@@ -151,9 +153,9 @@ export class HomePage implements OnInit {
   }
 
   setPixel(pixel: string) {
-    let script = this._renderer2.createElement('script');
+    let script = this.renderer2.createElement('script');
     script.text = pixel;
-    this._renderer2.appendChild(this.document.body, script);
+    this.renderer2.appendChild(this.document.body, script);
   }
 
   shareWhatsapp() {

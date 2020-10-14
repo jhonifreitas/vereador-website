@@ -1,6 +1,12 @@
+class Image {
+  url: string;
+  width: number;
+  height: number;
+}
+
 export class Config {
   id?: string;
-  image: string;
+  image: Image;
   
   // WEBSITE
   title: string;

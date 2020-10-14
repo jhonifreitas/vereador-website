@@ -1,8 +1,8 @@
 <ng-lottie *ngIf="loading" [options]="lottieOpts" width="150px" height="150px"></ng-lottie>
 
 <main id="container" *ngIf="!loading">
-  <div id="image" *ngIf="config.image">
-    <img [src]="config.image" alt="">
+  <div id="image" *ngIf="config?.image?.url">
+    <img [src]="config.image.url" alt="">
   </div>
   
   <mat-tab-group mat-align-tabs="center">
