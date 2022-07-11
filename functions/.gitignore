@@ -8,3 +8,6 @@ dist/
 
 # Node.js dependency directory
 node_modules/
+
+# Allow
+!cp-angular.js
