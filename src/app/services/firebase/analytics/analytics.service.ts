@@ -1,9 +1,7 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Analytics } from 'src/app/models/analytics';
-
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +19,10 @@ export class FBAnalyticsService {
       this.db.collection(
         this.collectionName, ref => ref.where('ip', '==', ip).where('config', '==', configId).limit(1)
       ).get().subscribe(actions => {
-        if(!actions.empty){
+        if (!actions.empty) {
           const doc = actions.docs[0];
-          resolve({id: doc.id, ...doc.data()} as Analytics)
-        }else{
-          reject()
-        }
+          resolve({id: doc.id, ...doc.data()} as Analytics);
+        } else reject();
       });
     })
   }

@@ -1,9 +1,7 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Category } from 'src/app/models/category';
-
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +14,15 @@ export class FBCategoryService {
     private db: AngularFirestore,
   ) { }
 
-  all(configId: string) {
-    return this.db.collection(this.collectionName, ref => ref.where('config', '==', configId).orderBy('order')).get().pipe(
-      map(actions => {
-        return actions.docs.map(doc => {
-          if(doc.exists){
-            return doc.data() as Category;
-          }
-        })
-      })
-    );
+  all(configId: string): Promise<Category[]> {
+    return new Promise(resolve => {
+      this.db.collection(
+        this.collectionName,
+        ref => ref.where('config', '==', configId).orderBy('order')
+      ).get().subscribe(actions => {
+        const docs = actions.docs.map(doc => doc.data() as Category);
+        resolve(docs);
+      });
+    });
   }
 }

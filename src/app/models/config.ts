@@ -1,9 +1,3 @@
-class Image {
-  url: string;
-  width: number;
-  height: number;
-}
-
 export class Config {
   id?: string;
   image: Image;
@@ -19,4 +13,9 @@ export class Config {
   owner?: string;
 
   pixel?: string;
+}
+
+class Image {
+  mobile?: string;
+  desktop?: string;
 }

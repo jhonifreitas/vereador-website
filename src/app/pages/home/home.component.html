@@ -1,10 +1,55 @@
 <ng-lottie *ngIf="loading" [options]="lottieOpts" width="150px" height="150px"></ng-lottie>
 
 <main id="container" *ngIf="!loading">
-  <div id="image" *ngIf="config?.image?.url">
-    <img [src]="config.image.url" alt="">
+  <div id="banner" *ngIf="config?.image?.mobile" fxHide-gt-md>
+    <img [src]="config.image.mobile" alt="">
   </div>
-  
+  <div id="banner" *ngIf="config?.image?.desktop" fxHide-lt-md>
+    <img [src]="config.image.desktop" alt="">
+  </div>
+
+  <div id="share">
+    <h2 class="title">{{ config?.description }}</h2>
+
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+      <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+        <div fxFlex="38">
+          <a id="shareWhastapp" mat-raised-button color="success" (click)="shareWhatsapp()">
+            <mat-icon fontSet="fab" fontIcon="fa-whatsapp"></mat-icon>
+            Compartilhar Agora!
+          </a>
+        </div>
+        <form fxFlex fxLayout="row" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
+          <div fxFlex>
+            <label for="phone">ou digite o telefone:</label>
+          </div>
+          <div fxFlex>
+            <input type="text" id="phone" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
+          </div>
+          <div fxFlex>
+            <button mat-stroked-button type="submit">Enviar!</button>
+          </div>
+        </form>
+      </div>
+      <div fxFlex class="social">
+        <ng-container *ngFor="let social of socials">
+          <a mat-icon-button [href]="social.url" target="_blank" class="facebook" *ngIf="social.type == 'facebook'">
+            <mat-icon fontSet="fab" fontIcon="fa-facebook-f"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="youtube" *ngIf="social.type == 'youtube'">
+            <mat-icon fontSet="fab" fontIcon="fa-youtube"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="instagram" *ngIf="social.type == 'instagram'">
+            <mat-icon fontSet="fab" fontIcon="fa-instagram"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="linkedin" *ngIf="social.type == 'linkedin'">
+            <mat-icon fontSet="fab" fontIcon="fa-linkedin-in"></mat-icon>
+          </a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
   <mat-tab-group mat-align-tabs="center">
     <mat-tab *ngFor="let tab of tabs" [label]="tab.name">
       <div class="text" [innerHtml]="tab.text | safeHtml"></div>
@@ -24,33 +69,5 @@
       </mat-expansion-panel-header>
       <div class="text text-wrap" [innerHtml]="config.donation | safeHtml"></div>
     </mat-expansion-panel>
-  </div>
-  <div id="share">
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <div fxFlex="50">
-        <a id="shareWhastapp" mat-raised-button (click)="shareWhatsapp()">
-          Compartilhar
-          <mat-icon fontSet="fab" fontIcon="fa-whatsapp"></mat-icon>
-        </a>
-        <h3><small>ou digite o telefone</small></h3>
-        <form [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
-          <div class="form-group">
-            <input type="text" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
-          </div>
-          <button mat-raised-button type="submit" color="success" [disabled]="loading">
-            <span *ngIf="!loading">Enviar Cartão</span>
-            <span *ngIf="loading">Enviando...</span>
-          </button>
-        </form>
-        <div class="social">
-          <a mat-icon-button *ngFor="let social of socials" [href]="social.url" target="_blank">
-            <mat-icon *ngIf="social.type == 'facebook'" fontSet="fab" fontIcon="fa-facebook-f"></mat-icon>
-            <mat-icon *ngIf="social.type == 'youtube'" fontSet="fab" fontIcon="fa-youtube"></mat-icon>
-            <mat-icon *ngIf="social.type == 'instagram'" fontSet="fab" fontIcon="fa-instagram"></mat-icon>
-            <mat-icon *ngIf="social.type == 'linkedin'" fontSet="fab" fontIcon="fa-linkedin-in"></mat-icon>
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
 </main>

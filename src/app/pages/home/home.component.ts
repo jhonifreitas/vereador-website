@@ -14,8 +14,8 @@ import { Category } from 'src/app/models/category';
 import { environment } from 'src/environments/environment';
 import { Access, Analytics } from 'src/app/models/analytics';
 
-import { IPService } from 'src/app/services/ip/ip.service';
-import { UtilsService } from 'src/app/services/utils/utils.service';
+import { IPService } from 'src/app/services/ip.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { FBTabService } from 'src/app/services/firebase/tab/tab.service';
 import { FBSocialService } from 'src/app/services/firebase/social/social.service';
 import { FBConfigService } from 'src/app/services/firebase/config/config.service';
@@ -61,17 +61,16 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     this.config = await this.getConfig();
-    if(this.config){
-
-      if(this.config.owner) {
-        this.fbConfig.get(this.config.owner).subscribe(config => {
-          if(config.pixel){
+    if (this.config) {
+      if (this.config.owner) {
+        this.fbConfig.getById(this.config.owner).subscribe(config => {
+          if (config.pixel) {
             this.setPixel(config.pixel);
           }
         })
       }
 
-      if(this.config.pixel){
+      if (this.config.pixel) {
         this.setPixel(this.config.pixel);
       }
 
@@ -84,27 +83,24 @@ export class HomePage implements OnInit {
         { property: 'og:description', content: this.config.description },
         { property: 'og:url', content: `${environment.host}/${this.config.url}` },
       ]);
-      if(this.config.image){
+      
+      if (this.config.image) {
         this.meta.addTags([
           { property: 'og:image:type', content: 'image/png' },
-          { property: 'og:image', content: this.config.image.url },
-          { property: 'og:image:width', content: this.config.image.width.toString() },
-          { property: 'og:image:height', content: this.config.image.height.toString() },
-        ])
-
+          { property: 'og:image', content: this.config.image.mobile },
+        ]);
       }
 
-      if(isPlatformBrowser(this.platformId)){
+      if (isPlatformBrowser(this.platformId)) {
         this.getGeoLocation();
       }
 
-      this.getSocials();
-      this.getTabs();
-      this.getCategories();
+      await this.getSocials();
+      await this.getTabs();
+      await this.getCategories();
+
       this.loading = false;
-    }else{
-      this.router.navigateByUrl('/error/404');
-    }
+    } else this.router.navigateByUrl('/error/404');
   }
 
   getGeoLocation() {
@@ -140,26 +136,20 @@ export class HomePage implements OnInit {
     });
   }
 
-  getSocials() {
-    this.fbSocial.all(this.config.id).subscribe(socials => {
-      this.socials = socials;
-    })
+  async getSocials() {
+    this.socials = await this.fbSocial.all(this.config.id);
   }
 
-  getTabs() {
-    this.fbTab.all(this.config.id).subscribe(tabs => {
-      this.tabs = tabs;
-    })
+  async getTabs() {
+    this.tabs = await this.fbTab.all(this.config.id);
   }
 
-  getCategories() {
-    this.fbCategory.all(this.config.id).subscribe(categories => {
-      this.categories = categories;
-    })
+  async getCategories() {
+    this.categories = await this.fbCategory.all(this.config.id);
   }
 
   setPixel(pixel: string) {
-    let script = this.renderer2.createElement('script');
+    const script = this.renderer2.createElement('script');
     script.text = pixel;
     this.renderer2.appendChild(this.document.body, script);
   }
