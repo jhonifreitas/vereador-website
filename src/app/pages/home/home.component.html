@@ -1,10 +1,10 @@
 <ng-lottie *ngIf="loading" [options]="lottieOpts" width="150px" height="150px"></ng-lottie>
 
 <main id="container" *ngIf="!loading">
-  <div id="banner" *ngIf="config?.image?.mobile" fxHide-gt-md>
+  <div id="banner" *ngIf="config?.image?.mobile" fxHide.gt-md>
     <img [src]="config.image.mobile" alt="">
   </div>
-  <div id="banner" *ngIf="config?.image?.desktop" fxHide-lt-md>
+  <div id="banner" *ngIf="config?.image?.desktop" fxHide.lt-md>
     <img [src]="config.image.desktop" alt="">
   </div>
 
