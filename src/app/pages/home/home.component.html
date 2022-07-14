@@ -20,13 +20,11 @@
           </a>
         </div>
         <form fxFlex fxLayout="row" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
-          <div fxFlex>
-            <label for="phone">ou digite o telefone:</label>
+          <div fxFlex class="label">
+            <label for="phone">Ou digite o telefone:</label>
           </div>
-          <div fxFlex>
+          <div fxFlex fxLayout="row">
             <input type="text" id="phone" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
-          </div>
-          <div fxFlex>
             <button mat-stroked-button type="submit">Enviar!</button>
           </div>
         </form>
@@ -44,6 +42,12 @@
           </a>
           <a mat-icon-button [href]="social.url" target="_blank" class="linkedin" *ngIf="social.type == 'linkedin'">
             <mat-icon fontSet="fab" fontIcon="fa-linkedin-in"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="twitter" *ngIf="social.type == 'twitter'">
+            <mat-icon fontSet="fab" fontIcon="fa-twitter"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="tiktok" *ngIf="social.type == 'tiktok'">
+            <mat-icon fontSet="fab" fontIcon="fa-tiktok"></mat-icon>
           </a>
         </ng-container>
       </div>
@@ -81,13 +85,11 @@
           </a>
         </div>
         <form fxFlex fxLayout="row" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
-          <div fxFlex>
-            <label for="phone">ou digite o telefone:</label>
+          <div fxFlex class="label">
+            <label for="phone">Ou digite o telefone:</label>
           </div>
-          <div fxFlex>
+          <div fxFlex fxLayout="row">
             <input type="text" id="phone" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
-          </div>
-          <div fxFlex>
             <button mat-stroked-button type="submit">Enviar!</button>
           </div>
         </form>
@@ -105,6 +107,12 @@
           </a>
           <a mat-icon-button [href]="social.url" target="_blank" class="linkedin" *ngIf="social.type == 'linkedin'">
             <mat-icon fontSet="fab" fontIcon="fa-linkedin-in"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="twitter" *ngIf="social.type == 'twitter'">
+            <mat-icon fontSet="fab" fontIcon="fa-twitter"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="tiktok" *ngIf="social.type == 'tiktok'">
+            <mat-icon fontSet="fab" fontIcon="fa-tiktok"></mat-icon>
           </a>
         </ng-container>
       </div>
