@@ -8,13 +8,13 @@
     <img [src]="config.image.desktop" alt="">
   </div>
 
-  <div id="share">
+  <div class="share share-top">
     <h2 class="title">{{ config?.titleFeatured }}</h2>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
       <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
         <div fxFlex="38">
-          <a id="shareWhastapp" mat-raised-button color="success" (click)="shareWhatsapp()">
+          <a class="whatstapp" mat-raised-button color="success" (click)="shareWhatsapp()">
             <mat-icon fontSet="fab" fontIcon="fa-whatsapp"></mat-icon>
             Compartilhar Agora!
           </a>
@@ -69,5 +69,47 @@
       </mat-expansion-panel-header>
       <div class="text text-wrap" [innerHtml]="config.donation | safeHtml"></div>
     </mat-expansion-panel>
+  </div>
+
+  <div class="share share-bottom">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+      <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+        <div fxFlex="38">
+          <a class="whatstapp" mat-raised-button color="success" (click)="shareWhatsapp()">
+            <mat-icon fontSet="fab" fontIcon="fa-whatsapp"></mat-icon>
+            Compartilhar Agora!
+          </a>
+        </div>
+        <form fxFlex fxLayout="row" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
+          <div fxFlex>
+            <label for="phone">ou digite o telefone:</label>
+          </div>
+          <div fxFlex>
+            <input type="text" id="phone" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
+          </div>
+          <div fxFlex>
+            <button mat-stroked-button type="submit">Enviar!</button>
+          </div>
+        </form>
+      </div>
+      <div fxFlex class="social">
+        <ng-container *ngFor="let social of socials">
+          <a mat-icon-button [href]="social.url" target="_blank" class="facebook" *ngIf="social.type == 'facebook'">
+            <mat-icon fontSet="fab" fontIcon="fa-facebook-f"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="youtube" *ngIf="social.type == 'youtube'">
+            <mat-icon fontSet="fab" fontIcon="fa-youtube"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="instagram" *ngIf="social.type == 'instagram'">
+            <mat-icon fontSet="fab" fontIcon="fa-instagram"></mat-icon>
+          </a>
+          <a mat-icon-button [href]="social.url" target="_blank" class="linkedin" *ngIf="social.type == 'linkedin'">
+            <mat-icon fontSet="fab" fontIcon="fa-linkedin-in"></mat-icon>
+          </a>
+        </ng-container>
+      </div>
+    </div>
+
+    <p class="copyright">Desenvolvido por: <a href="https://www.wisao.com.br">www.wisao.com.br</a></p>
   </div>
 </main>

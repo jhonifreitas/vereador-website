@@ -54,15 +54,28 @@ ng-lottie {
     }
   }
 
-  #share {
+  .share {
     padding: 1.5rem 1rem;
+
+    &.share-bottom {
+      color: white;
+      background-color: #747474;
+
+      form {
+        button {
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      .copyright a {color: white !important;}
+    }
 
     .title {
       font-size: 2rem;
       margin-bottom: 1.5rem;
     }
 
-    #shareWhastapp mat-icon {font-size: 1.2rem;}
+    .whatstapp mat-icon {font-size: 1.2rem;}
 
     label {text-align: left;}
 
@@ -88,11 +101,15 @@ ng-lottie {
         &.linkedin {background: #0072B1;}
       }
     }
+
+    .copyright {
+      margin-top: 2rem;
+    }
   }
 }
 
 @media (max-width: 959px) {
-  #share {
+  .share {
     form {margin: 1rem 0;}
   }
 }
