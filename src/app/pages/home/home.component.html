@@ -12,22 +12,28 @@
     <h2 class="title">{{ config?.titleFeatured }}</h2>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
-      <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
-        <div fxFlex="38">
-          <a class="whatstapp" mat-raised-button color="success" (click)="shareWhatsapp()">
-            <mat-icon fontSet="fab" fontIcon="fa-whatsapp"></mat-icon>
-            Compartilhar Agora!
-          </a>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+          <div fxFlex="38">
+            <a class="whatstapp" mat-raised-button color="success" (click)="shareWhatsapp()">
+              <mat-icon fontSet="fab" fontIcon="fa-whatsapp"></mat-icon>
+              Compartilhar Agora!
+            </a>
+          </div>
+          <div fxFlex>
+            <form [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxFlex class="label">
+                  <label for="phone">Ou digite o telefone:</label>
+                </div>
+                <div fxFlex fxLayout="row">
+                  <input type="text" id="phone" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
+                  <button mat-stroked-button type="submit">Enviar!</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        <form fxFlex fxLayout="row" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="shareWhatsappPhone()">
-          <div fxFlex class="label">
-            <label for="phone">Ou digite o telefone:</label>
-          </div>
-          <div fxFlex fxLayout="row">
-            <input type="text" id="phone" class="text-center" formControlName="phone" placeholder="(00) 00000-0000" mask="(00) 00000-0000">
-            <button mat-stroked-button type="submit">Enviar!</button>
-          </div>
-        </form>
       </div>
       <div fxFlex class="social">
         <ng-container *ngFor="let social of socials">
