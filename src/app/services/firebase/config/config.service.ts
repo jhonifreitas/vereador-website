@@ -15,7 +15,16 @@ export class FBConfigService {
     private db: AngularFirestore
   ) { }
 
-  get(url: string) {
+  getById(id: string) {
+    return this.db.collection(this.collectionName).doc<Config>(id).snapshotChanges().pipe(
+      map(action => {
+        const doc = action.payload;
+        return {id: doc.id, ...doc.data()} as Config;
+      })
+    );;
+  }
+
+  getByUrl(url: string) {
     return this.db.collection<Config>(
       this.collectionName,
       ref => ref.where('url', '==', url).limit(1)
@@ -29,12 +38,17 @@ export class FBConfigService {
     );
   }
 
-  getById(id: string) {
-    return this.db.collection(this.collectionName).doc<Config>(id).snapshotChanges().pipe(
-      map(action => {
-        const doc = action.payload;
-        return {id: doc.id, ...doc.data()} as Config;
+  getByDomain(domain: string) {
+    return this.db.collection<Config>(
+      this.collectionName,
+      ref => ref.where('domain', '==', domain).limit(1)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        if (actions.length) {
+          const doc = actions[0].payload.doc;
+          return {id: doc.id, ...doc.data()} as Config;
+        }
       })
-    );;
+    );
   }
 }

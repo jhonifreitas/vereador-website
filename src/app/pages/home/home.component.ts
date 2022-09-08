@@ -74,14 +74,17 @@ export class HomePage implements OnInit {
         this.setPixel(this.config.pixel);
       }
 
+      let url = `${environment.host}/${this.config.url}`;
+      if (this.config.domain) url = `https://${this.config.domain}`;
+
       this.title.setTitle(this.config.title);
       this.meta.addTags([
         { name: 'keywords', content: this.config.keywords.join(',') },
         { name: 'description', content: this.config.description },
+        { property: 'og:url', content: url },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: this.config.title },
         { property: 'og:description', content: this.config.description },
-        { property: 'og:url', content: `${environment.host}/${this.config.url}` },
       ]);
       
       if (this.config.image) {
@@ -130,9 +133,15 @@ export class HomePage implements OnInit {
   getConfig(): Promise<Config> {
     return new Promise(resolve => {
       const url = this.activatedRoute.snapshot.paramMap.get('url');
-      this.fbConfig.get(url).subscribe(config => {
-        resolve(config);
-      });
+      if (url) {
+        this.fbConfig.getByUrl(url).subscribe(config => {
+          resolve(config);
+        });
+      } else {
+        this.fbConfig.getByDomain(location.host).subscribe(config => {
+          resolve(config);
+        });
+      }
     });
   }
 
@@ -168,7 +177,10 @@ export class HomePage implements OnInit {
   get whatsappMsg() {
     let msg = this.config.shareMsg.replace(/\n/gm, '%0a');
     msg += `%0a%0a`;
-    msg += `${environment.host}/${this.config.url}`;
+
+    if (this.config.domain) msg += `https://${this.config.domain}`;
+    else msg += `${environment.host}/${this.config.url}`;
+
     return msg;
   }
 }
