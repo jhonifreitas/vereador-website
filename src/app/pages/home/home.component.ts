@@ -3,7 +3,9 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformBrowser, DOCUMENT, PlatformLocation } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Component, Inject, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, Optional, PLATFORM_ID, Renderer2 } from '@angular/core';
+
+import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { AnimationOptions } from 'ngx-lottie';
 
@@ -53,7 +55,8 @@ export class HomePage implements OnInit {
     private fbAnalytics: FBAnalyticsService,
     private platformLocation: PlatformLocation,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: boolean
+    @Inject(PLATFORM_ID) private platformId: boolean,
+    @Optional() @Inject(REQUEST) protected request: Request
   ) {
     this.form = this.formGroup.group({
       phone: new FormControl('', Validators.required)
@@ -139,7 +142,8 @@ export class HomePage implements OnInit {
           resolve(config);
         });
       } else {
-        this.fbConfig.getByDomain(this.platformLocation.hostname).subscribe(config => {
+        const domain = this.request?.headers['x-forwarded-host'] || this.platformLocation.hostname;
+        this.fbConfig.getByDomain(domain).subscribe(config => {
           resolve(config);
         });
       }
