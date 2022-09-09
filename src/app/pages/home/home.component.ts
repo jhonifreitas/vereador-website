@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT, PlatformLocation } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 
@@ -51,8 +51,9 @@ export class HomePage implements OnInit {
     private fbCategory: FBCategoryService,
     private activatedRoute: ActivatedRoute,
     private fbAnalytics: FBAnalyticsService,
+    private platformLocation: PlatformLocation,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: boolean,
+    @Inject(PLATFORM_ID) private platformId: boolean
   ) {
     this.form = this.formGroup.group({
       phone: new FormControl('', Validators.required)
@@ -138,7 +139,7 @@ export class HomePage implements OnInit {
           resolve(config);
         });
       } else {
-        this.fbConfig.getByDomain(location.host).subscribe(config => {
+        this.fbConfig.getByDomain(this.platformLocation.hostname).subscribe(config => {
           resolve(config);
         });
       }

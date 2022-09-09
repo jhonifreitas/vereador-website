@@ -14,7 +14,7 @@
     "prerender": "ng run vereador-website:prerender",
     "build:functions": "npm run --prefix functions build",
     "build:all": "npm run build:ssr && npm run build:functions",
-    "deploy": "npm run build:all && firebase deploy --only functions:ssr"
+    "deploy": "npm run build:all && firebase deploy --only functions:ssr && firebase deploy --only hosting"
   },
   "private": true,
   "dependencies": {
